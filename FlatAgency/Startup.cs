@@ -1,8 +1,10 @@
+using FlatAgency.Models.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +23,10 @@ namespace FlatAgency
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var dbConnectionString = @"Server=(localdb)\mssqllocaldb;Database=FlatAgencyDB;Trusted_Connection=True";
+
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(dbConnectionString));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

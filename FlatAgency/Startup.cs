@@ -1,4 +1,6 @@
 using FlatAgency.Models.Database;
+using FlatAgency.Models.Interfaces;
+using FlatAgency.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,8 @@ namespace FlatAgency
             var dbConnectionString = @"Server=(localdb)\mssqllocaldb;Database=FlatAgencyDB;Trusted_Connection=True";
 
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(dbConnectionString));
+
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

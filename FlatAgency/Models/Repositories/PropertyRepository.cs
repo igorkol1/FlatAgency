@@ -14,7 +14,7 @@ namespace FlatAgency.Models.Repositories
 
         public PropertyRepository(DatabaseContext databaseContext) => _databaseContext = databaseContext;
 
-        public List<Property> GetAll()
+        public List<Property> GetAllProperties()
         {
             return _databaseContext.Properties.ToList();
         }
@@ -24,6 +24,22 @@ namespace FlatAgency.Models.Repositories
             return _databaseContext.Properties.
                 Where(property => property.Id == propertyId).
                 FirstOrDefault();
+        }
+
+        public int AddProperty(Property property, Address address, Owner owner)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public int UpdateProperty(Property property)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteProperty(Property property, Address address, Owner owner)
+        {
+            throw new NotImplementedException();
         }
     }
 }

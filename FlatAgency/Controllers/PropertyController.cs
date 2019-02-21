@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlatAgency.Models;
 using FlatAgency.Models.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ namespace FlatAgency.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetProperties()
+        public IActionResult GetAllProperties()
         {
-            return new JsonResult(_propertyRepository.GetAll());
+            return new JsonResult(_propertyRepository.GetAllProperties());
         }
     }
 }

@@ -31,6 +31,8 @@ namespace FlatAgency
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(dbConnectionString));
 
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IAdressReporisoty, AddressRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

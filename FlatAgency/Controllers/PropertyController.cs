@@ -14,10 +14,14 @@ namespace FlatAgency.Controllers
     public class PropertyController : Controller
     {
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IAdressReporisoty _adressReporisoty;
+        private readonly IOwnerRepository _ownerRepository;
 
-        public PropertyController(IPropertyRepository propertyRepository)
+        public PropertyController(IPropertyRepository propertyRepository,IAdressReporisoty adressReporisoty,IOwnerRepository ownerRepository)
         {
             _propertyRepository = propertyRepository;
+            _adressReporisoty = adressReporisoty;
+            _ownerRepository = ownerRepository;
         }
 
         [HttpGet("[action]")]
@@ -25,5 +29,85 @@ namespace FlatAgency.Controllers
         {
             return new JsonResult(_propertyRepository.GetAllProperties());
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetProperty(int propertyId)
+        {
+            if (propertyId <= 0)
+            {
+                return BadRequest("Id cannot be less than 0");
+            }
+            return new JsonResult(_propertyRepository.GetProperty(propertyId));
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AddProperty([FromBody] Property property)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var owner = _ownerRepository.GetOwner(property.OwnerId);
+            if(owner == null)
+            {
+                return NotFound("Cannot find owner with provided ownerId");
+            }
+
+            var address = _adressReporisoty.GetAddress(property.AddressId);
+            if(address == null)
+            {
+                return NotFound("Cannot find address with provided addressId");
+            }
+
+            _propertyRepository.AddProperty(property, address, owner);
+
+
+            return new JsonResult(property.Id);
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult UpdateProperty([FromBody] Property property)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _propertyRepository.UpdateProperty(property);
+            return new JsonResult(property.Id);
+        }
+
+        [HttpDelete("[action]")]
+        public IActionResult DeleteProperty(int propertyId) 
+        {
+            if (propertyId <= 0)
+            {
+                return BadRequest("Id cannot be less than 0");
+            }
+
+            var property = _propertyRepository.GetProperty(propertyId);
+            if (property == null)
+            {
+                return BadRequest("Cannot find property with provided propertyId");
+            }
+
+            var address = _adressReporisoty.GetAddress(property.AddressId);
+            if (address == null)
+            {
+                return BadRequest("Cannot find address with provided addressId");
+            }
+
+            var owner = _ownerRepository.GetOwner(property.OwnerId);
+            if (owner == null)
+            {
+                return BadRequest("Cannot find owner with provided ownerId");
+            }
+
+            _propertyRepository.DeleteProperty(property, address, owner);
+            return new JsonResult(property.Id);
+        }
+
+
+        
     }
 }

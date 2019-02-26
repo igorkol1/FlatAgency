@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export abstract class PropertyBackendService {
+export abstract class PropertiesBackendService {
   abstract addProperty(newProperty: Property): Observable<number>;
 
   abstract getProperty(id: number): Observable<Property>;

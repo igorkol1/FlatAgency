@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { PropertyService } from '../../services/property.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Property } from 'src/app/models/property';
@@ -24,10 +25,9 @@ export class PropertyDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.detectUrlParam();
-    console.log(this.location.pathname);
-    if(this.location.pathname.endsWith("/properties/new-property")){
+    if(this.location.isCurrentPathEqualTo("/properties/new-property")){
       this.pageTitle = "New Real Easte"
-    }else if(this.location.pathname.endsWith("/properties/property-update")){
+    }else if(this.location.isCurrentPathEqualTo("/properties/property-update/"+this.urlParam)){
       this.pageTitle = "Update Real Easte"
       this.downloadProperty();
     }else{
@@ -45,7 +45,7 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   onSubmit(propObj:Property):void{
-    if(this.location.pathname.endsWith("/properties/new-property")){
+    if(this.location.isCurrentPathEqualTo("/properties/new-property")){
       propObj.addressId = 3;
       propObj.ownerId = 3;
       this.propertiesService.addProperty(propObj).subscribe(
@@ -67,7 +67,6 @@ export class PropertyDetailsComponent implements OnInit {
   }
 
   goBack():void{
-    this.router.navigateByUrl("/properties");
-    //this.location.
+    this.location.back();
   }
 }

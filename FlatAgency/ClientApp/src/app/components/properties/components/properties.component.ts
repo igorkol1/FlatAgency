@@ -36,19 +36,21 @@ export class PropertiesComponent implements OnInit {
     )
   }
 
-  getProperty(id:number):void{
-    this.router.navigate(['./properties/property-details',id]);
+  getProperty(id: number): void {
+    this.router.navigate(['./properties/property-details', id]);
   }
 
-  updateProperty(id:number):void{
-    this.router.navigate(['./properties/property-update',id]);
+  updateProperty(id: number): void {
+    this.router.navigate(['./properties/property-update', id]);
   }
 
-  deleteProperty(id:number):void{
+  deleteProperty(id: number): void {
     this.propertiesService.deleteProperty(id).subscribe(
-      onSuccess => console.log(onSuccess),
+      onSuccess => {
+        console.log(onSuccess);
+        this.properties.splice(this.properties.findIndex(prop => prop.id == id), 1)
+      },
       onError => console.log(onError)
     );
-    this.properties.splice(this.properties.findIndex(prop => prop.id==id),1)
   }
 }

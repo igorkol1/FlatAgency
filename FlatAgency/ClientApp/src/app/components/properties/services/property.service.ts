@@ -27,6 +27,6 @@ export class PropertyService {
   }
 
   deleteProperty(id:number):Observable<number>{
-    return this.deleteProperty(id);
+    return this.propertiesBackendService.deleteProperty(id);
   }
 }

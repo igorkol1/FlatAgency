@@ -11,8 +11,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 
 // Properties Section
-import {PropertiesComponent} from './components/property/properties.component';
-import {PropertyService} from './components/property/services/property.service';
+import {PropertiesComponent} from './components/properties/components/properties.component';
+import {PropertyService} from './components/properties/services/property.service';
 import {PropertiesBackendService} from './services/properties-backend.service';
 import {HttpPropertiesBackendService} from './services/http-properties-backend.service';
 import { HttpModule } from '@angular/http';

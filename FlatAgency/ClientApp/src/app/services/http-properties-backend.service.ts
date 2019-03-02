@@ -22,4 +22,25 @@ export class HttpPropertiesBackendService extends PropertiesBackendService {
     });
     this.jsonContentOptions = new RequestOptions({headers:headersJson})
   }
+
+  addProperty(newProperty: import("../models/property").Property): import("rxjs").Observable<number> {
+    return this.http.post(this.addPropertyUrl,JSON.stringify(newProperty),this.jsonContentOptions)
+    .map(response=>response.json() as number)
+  }
+  getProperty(id: number): import("rxjs").Observable<import("../models/property").Property> {
+    return this.http.get(this.getPropertyUrl+id ,this.jsonContentOptions)
+    .map(response=>response.json())
+  }
+  getProperties(): import("rxjs").Observable<import("../models/property").Property[]> {
+    return this.http.get(this.getPropertiesUrl ,this.jsonContentOptions)
+    .map(response=>response.json())
+  }
+  updateProperty(updatedProperty: import("../models/property").Property): import("rxjs").Observable<number> {
+    return this.http.post(this.updatePropertyUrl,JSON.stringify(updatedProperty),this.jsonContentOptions)
+    .map(response=>response.json() as number)
+  }
+  deleteProperty(id: number): import("rxjs").Observable<number> {
+    return this.http.delete(this.deletePropertyUrl+id ,this.jsonContentOptions)
+    .map(response=>response.json())
+  }
 }

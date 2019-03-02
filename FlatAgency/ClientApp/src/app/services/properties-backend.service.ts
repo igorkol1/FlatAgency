@@ -14,5 +14,5 @@ export abstract class PropertiesBackendService {
 
   abstract updateProperty(updatedProperty: Property): Observable<number>;
 
-  abstract deleteProperty(property: Property): Observable<number>;
+  abstract deleteProperty(id: number): Observable<number>;
 }

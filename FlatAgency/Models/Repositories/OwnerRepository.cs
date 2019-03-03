@@ -25,6 +25,11 @@ namespace FlatAgency.Models.Repositories
             return owner.OwnerId;
         }
 
+        public List<Owner> GetAll()
+        {
+            return _databaseContext.Owners.ToList();
+        }
+
         public Owner GetOwner(int ownerId)
         {
             if (ownerId <= 0)
@@ -35,6 +40,18 @@ namespace FlatAgency.Models.Repositories
             return _databaseContext.Owners.
                 Where(owner => owner.OwnerId == ownerId).
                 FirstOrDefault();
+        }
+
+        public int UpdateOwner(Owner owner)
+        {
+            if (owner == null)
+            {
+                throw new Exception("Property cannot be null");
+            }
+
+            _databaseContext.Owners.Update(owner);
+            _databaseContext.SaveChanges();
+            return owner.OwnerId;
         }
     }
 }

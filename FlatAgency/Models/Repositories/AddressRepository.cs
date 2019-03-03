@@ -36,6 +36,23 @@ namespace FlatAgency.Models.Repositories
                 Where(address => address.AddressId == addressId).
                 FirstOrDefault();
         }
+
+        public List<Address> GetAll()
+        {
+            return _databaseContext.Addresses.ToList();
+        }
+
+        public int UpdateAdress(Address address)
+        {
+            if (address == null)
+            {
+                throw new Exception("Property cannot be null");
+            }
+
+            _databaseContext.Addresses.Update(address);
+            _databaseContext.SaveChanges();
+            return address.AddressId;
+        }
     }
     
 }

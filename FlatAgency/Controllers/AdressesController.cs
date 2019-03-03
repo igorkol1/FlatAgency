@@ -33,5 +33,31 @@ namespace FlatAgency.Controllers
             return new JsonResult(address.AddressId);
         }
 
+        [HttpGet("[action]")]
+        public IActionResult GetAddreses()
+        {
+            return new JsonResult(_addressRepository.GetAll());
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult UpdateAddress([FromBody] Address address)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _addressRepository.UpdateAdress(address);
+            return new JsonResult(address.AddressId);
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult GetAddress(int addressId)
+        {
+            if (addressId <= 0)
+            {
+                return BadRequest("Address id can not be less than zero");
+            }
+            return new JsonResult(_addressRepository.GetAddress(addressId));
+        }
     }
 }

@@ -10,5 +10,9 @@ namespace FlatAgency.Models.Interfaces
         int AddAdress(Address address);
 
         Address GetAddress(int addressId);
+
+        int UpdateAdress(Address address);
+
+        List<Address> GetAll();
     }
 }

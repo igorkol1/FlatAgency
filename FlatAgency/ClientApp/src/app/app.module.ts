@@ -18,6 +18,9 @@ import { PropertiesBackendService } from './services/properties-backend.service'
 import { HttpPropertiesBackendService } from './services/http-properties-backend.service';
 import { PropertyDetailsComponent } from './components/properties/components/property-details/property-details.component'
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CalendarModule} from 'primeng/calendar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,8 @@ import { PropertyDetailsComponent } from './components/properties/components/pro
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserAnimationsModule,
+    CalendarModule,
     HttpClientModule,
     HttpModule,
     FormsModule,

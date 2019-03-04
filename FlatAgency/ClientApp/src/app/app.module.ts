@@ -19,7 +19,7 @@ import { HttpPropertiesBackendService } from './services/http-properties-backend
 import { PropertyDetailsComponent } from './components/properties/components/property-details/property-details.component'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CalendarModule} from 'primeng/calendar';
+import { GrowlModule, ProgressSpinnerModule, ConfirmDialogModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,9 @@ import {CalendarModule} from 'primeng/calendar';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,
-    CalendarModule,
+    GrowlModule,
+    ProgressSpinnerModule,
+    ConfirmDialogModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
